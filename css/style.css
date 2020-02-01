@@ -1,0 +1,123 @@
+<?php
+   //include("config.php");
+   session_start();
+$username = "admin";
+$password = "123456";
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+      
+      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+      
+      $sql = "SELECT id FROM admin WHERE username = '$myusername' and passcode = '$mypassword'";
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $active = $row['active'];
+      
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+		
+      if($count == 1) {
+         session_register("myusername");
+         $_SESSION['login_user'] = $myusername;
+         
+         header("location: welcome.php");
+      }else {
+         $error = "Your Login Name or Password is invalid";
+      }
+   }
+?>
+#slides{
+	position: relative;
+	height: 150px;
+	padding: 0px;
+	margin: 4px 43px 200px 0px;
+	list-style-type: none;
+}
+
+.slide{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 1;
+
+	-webkit-transition: opacity 1s;
+	-moz-transition: opacity 1s;
+	-o-transition: opacity 1s;
+	transition: opacity 1s;
+}
+
+.showing{
+	opacity: 1;
+	z-index: 2;
+}
+.controls{
+    display: none;
+}
+
+.but{
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+.names{
+    font-family: "Georgia" ;
+    font-weight: 500;
+    font-size: 44px;
+}
+.t{
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.tt{
+     border: 1px solid #DF433B; /* Параметры границы */
+    background:	#F0FFFF;  
+    margin:5px 105px 30px 105px ; 
+    border-radius: 5px;
+}
+.scrollToTop{
+	
+	position:fixed;
+	top:510px;
+	right:25px;
+	display:none;
+    
+/*	background-image: url(images/top.jpg)*/
+}
+.scrollToTop:hover{
+	text-decoration:none;
+}
+
+.affix {
+      top: 0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+
+  .affix + .container-fluid {
+      padding-top: 70px;
+  }
+
+.scrollToTop{
+	
+	position:fixed;
+	top:510px;
+	right:25px;
+	display:none;
+    
+}
+.scrollToTop:hover{
+	text-decoration:none;
+}
+.tt1{
+    border: 1px solid #DF433B; /* Параметры границы */
+    background:	#F0FFFF;  
+    margin:50px 205px 0px 205px ; 
+    border-radius: 25px;
+
+    
+}
